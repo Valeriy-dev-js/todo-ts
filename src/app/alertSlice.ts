@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "./store";
 
 const alertSlice = createSlice({
     name: 'alert',
@@ -8,7 +9,7 @@ const alertSlice = createSlice({
         status: ''
     },
     reducers:{
-        setAlert(state, action){
+        setAlert(state, action : PayloadAction<any>){
             state.isAlert = action.payload.isAlert;
             state.message = action.payload.message;
             state.status = action.payload.status;
@@ -20,7 +21,7 @@ const alertSlice = createSlice({
 });
 
 export const { setAlert, setIsAlert } = alertSlice.actions
-export const selectAlert = (state: any) => state.alert
+export const selectAlert = (state: RootState) => state.alert
 export default alertSlice.reducer
 
 
