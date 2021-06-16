@@ -11,9 +11,10 @@ import { selectAlert, setIsAlert } from './app/alertSlice';
 import { Alert, AlertTitle } from '@material-ui/lab';
 
 function App() {
-//   const alert = useSelector(selectAlert);
+  const alert = useSelector(selectAlert);
   const isLoggined = useSelector(selectIsLogined);
   const dispatch = useDispatch();
+  
 
 //   const checkToken = useCallback(() => {
 //     if (!localStorage.token) return;
@@ -47,7 +48,7 @@ function App() {
     <Container maxWidth='sm'>
       {/* <Header handleSignout={handleSignout} /> */}
       <Auth />
-      {/* <Snackbar
+      <Snackbar
         onClose={handleClose}
         open={alert.isAlert}
         autoHideDuration={3000}
@@ -56,7 +57,7 @@ function App() {
           <AlertTitle>{`Status code ${alert.status}`}</AlertTitle>
           {alert.message}
         </Alert>
-      </Snackbar> */}
+      </Snackbar>
     </Container>
   );
 }

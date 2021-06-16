@@ -11,9 +11,9 @@ interface AuthState extends User {
 }
 
 export const login: any = createAsyncThunk('auth/login', async (user: User) => {
-    console.log(user);
-    console.log('sdfsdf');
-    
+  console.log(user);
+  console.log('sdfsdf');
+
   const res = await axios.post('login', user);
   return res.data;
 });
@@ -38,15 +38,10 @@ const authSlice = createSlice({
   },
   extraReducers: {
     [login.fulfilled]: (state, action) => {
-        console.log(action);
-        
+
+      console.log('Token', action.payload.token);
+
       state.isLogined = true;
-      console.log(action);
-      
-    },
-    [login.rejected]: (sate, action) => {
-        console.log(action);
-        
     }
   },
 });
