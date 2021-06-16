@@ -1,35 +1,26 @@
 import { Button, Grid, TextField } from '@material-ui/core';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectIsLogined,
   selectName,
   selectPassword,
+  selectIsSignup,
   setUserName,
   setUserPassword,
-  login
+  login,
+  signup
 } from './authSlice';
 
 export const Auth = () => {
   const dispatch = useDispatch();
-  const isLogined = useSelector(selectIsLogined);
+  const isSignup = useSelector(selectIsSignup);
   const name = useSelector(selectName);
   const password = useSelector(selectPassword);
-  console.log('LOGINED', isLogined);
-  
-  
-  console.log('NAME',name,'Password', password);
 
-  //   const handleUserChange = (e: any) => {
-  //     const value = e.target.value;
-  //   };
   return (
     <form onSubmit={(e) => e.preventDefault()}>
       <Grid container direction='column' alignItems='center'>
         <TextField
           name='name'
-        //   error={helperText !== ''}
-        //   helperText={helperText}
           onChange={(e) => dispatch(setUserName(e.target.value))}
           value={name}
           label='Username'
@@ -49,17 +40,21 @@ export const Auth = () => {
           margin='normal'
           type='password'
         />
-
-        {true ? (
+        {isSignup ? (
           <Button
-            onClick={() => dispatch(login({name, password}))}
-            type='submit' 
-            color='primary' 
-            variant='contained'>
+            onClick={() => dispatch(login({ name, password }))}
+            type='submit'
+            color='primary'
+            variant='contained'
+          >
             Login
           </Button>
         ) : (
-          <Button type='submit' color='secondary' variant='contained'>
+          <Button 
+            onClick={() => dispatch(signup({name, password}))}
+            type='submit' 
+            color='secondary' 
+            variant='contained' >
             sign up
           </Button>
         )}

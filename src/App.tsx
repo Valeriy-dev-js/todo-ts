@@ -1,8 +1,8 @@
-import { useCallback, useLayoutEffect } from 'react';
-import { Todo } from './components/Todo';
+// import { useCallback, useLayoutEffect } from 'react';
+// import { Todo } from './components/Todo';
 import { Auth } from './components/auth/Auth';
 import { Container, Snackbar } from '@material-ui/core';
-// import { Header } from './components/Header';
+import { Header } from './components/Header';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLogined } from './components/auth/authSlice';
 // import { decode } from 'jsonwebtoken';
@@ -46,7 +46,7 @@ function App() {
 
   return (
     <Container maxWidth='sm'>
-      {/* <Header handleSignout={handleSignout} /> */}
+      <Header />
       <Auth />
       <Snackbar
         onClose={handleClose}
