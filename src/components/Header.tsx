@@ -4,7 +4,7 @@ import {
   selectIsSignup,
   selectIsLogined,
   toggleSignup,
-  signout
+  signout,
 } from './auth/authSlice';
 
 export const Header = () => {

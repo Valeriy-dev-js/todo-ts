@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
+import { RootState, store } from '../../app/store';
 import axios from '../../axiosConfig';
 
 interface User {
@@ -60,9 +60,6 @@ const authSlice = createSlice({
       localStorage.setItem('name', state.name)
       state.isLogined = true;
     },
-    [signup.fulfilled]: (state, action) => {
-
-    }
   },
 });
 
