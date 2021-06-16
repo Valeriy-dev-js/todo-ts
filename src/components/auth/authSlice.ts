@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import axios from '../../axiosConfig';
 
@@ -10,8 +10,9 @@ interface AuthState extends User {
   isLogined: boolean;
 }
 
-export const handleLogin: any = createAsyncThunk('auth/login', async (user: User) => {
+export const login: any = createAsyncThunk('auth/login', async (user: User) => {
     console.log(user);
+    console.log('sdfsdf');
     
   const res = await axios.post('login', user);
   return res.data;
@@ -36,12 +37,14 @@ const authSlice = createSlice({
     },
   },
   extraReducers: {
-    [handleLogin.fulfilled]: (state, action) => {
+    [login.fulfilled]: (state, action) => {
+        console.log(action);
+        
       state.isLogined = true;
       console.log(action);
       
     },
-    [handleLogin.rejected]: (sate, action) => {
+    [login.rejected]: (sate, action) => {
         console.log(action);
         
     }

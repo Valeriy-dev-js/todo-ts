@@ -7,7 +7,7 @@ import {
   selectPassword,
   setUserName,
   setUserPassword,
-  handleLogin
+  login
 } from './authSlice';
 
 export const Auth = () => {
@@ -52,7 +52,7 @@ export const Auth = () => {
 
         {true ? (
           <Button
-            onClick={() => handleLogin({name, password})}
+            onClick={() => dispatch(login({name, password}))}
             type='submit' 
             color='primary' 
             variant='contained'>
