@@ -1,14 +1,14 @@
 import { TextField } from "@material-ui/core";
-import { useState } from "react";
+import React, { useState } from "react";
 
-export const ToDoInput = ({ handleTodoSubmit }) => {
-    const [todo, setTodo] = useState('');
+export const ToDoInput = ({ handleTodoPost }: any) => {
+    const [name, setName] = useState('');
     
-    const pressEnter = async (event) => {
+    const pressEnter = async (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            await handleTodoSubmit(todo);
-            setTodo('');
+            await handleTodoPost(name);
+            setName('');
         };
     };
 
@@ -19,9 +19,9 @@ export const ToDoInput = ({ handleTodoSubmit }) => {
             fullWidth
             variant='outlined'
             margin='normal'
-            onChange={e => setTodo(e.target.value)}
+            onChange={e => setName(e.target.value)}
             onKeyDown={(e) => pressEnter(e)}
-            value={todo}
+            value={name}
         />
     );
 };

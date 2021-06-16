@@ -7,6 +7,7 @@ import { ToDoList } from './ToDoList';
 import axios from '../axiosConfig';
 import { useDispatch } from 'react-redux';
 import { signout } from './auth/authSlice';
+import { Task } from '../app/interfaces';
 
 export const Todo = () => {
   //State
@@ -57,20 +58,20 @@ export const Todo = () => {
 
   //Action functions
   //Add Todo
-  const handleTodoSubmit = async (todo: any) => {
+  const handleTodoPost = async (name: string) => {
     await axios.post(POSTurl, {
-      name: todo,
+      name,
       done: false,
     });
     await fetchTodos();
   };
   //Delete Todo
-  const handleTodoDelete = async ({ uuid }: any) => {
+  const handleTodoDelete = async ({ uuid }: Task) => {
     await axios.delete(`${POSTurl}/${uuid}`);
     await fetchTodos();
   };
   // //Change Todo
-  const handleTodoChange = async ({ name, done, uuid }: any) => {
+  const handleTodoChange = async ({ name, done, uuid }: Task) => {
     await axios.patch(`${POSTurl}/${uuid}`, {
       name,
       done,
@@ -80,7 +81,7 @@ export const Todo = () => {
 
   return (
     <>
-      <ToDoInput handleTodoSubmit={handleTodoSubmit} />
+      <ToDoInput handleTodoPost={handleTodoPost} />
       <SorterFilter
         sorterFilter={sorterFilter}
         setSorterFilter={setSorterFilter}
