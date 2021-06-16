@@ -15,7 +15,7 @@ import { selectAlert, setIsAlert } from './app/alertSlice';
 import { Alert, AlertTitle } from '@material-ui/lab';
 
 function App() {
-  const isLoggined = useSelector(selectIsLogined)
+  const isLoggined = useSelector(selectIsLogined);
   const alert = useSelector(selectAlert);
   const dispatch = useDispatch();
 
@@ -37,9 +37,7 @@ function App() {
   return (
     <Container maxWidth='sm'>
       <Header />
-      {isLoggined
-      ? <Todo />}
-      <Auth />
+      {isLoggined ? <Todo /> : <Auth />}
       <Snackbar
         onClose={handleClose}
         open={alert.isAlert}

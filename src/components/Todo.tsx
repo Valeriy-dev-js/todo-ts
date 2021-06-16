@@ -4,21 +4,23 @@ import { Pagination } from './Pagination';
 import { SorterFilter } from './SorterFilter';
 import { ToDoInput } from './ToDoInput';
 import { ToDoList } from './ToDoList';
-import axios from '../axiosConfig'
+import axios from '../axiosConfig';
 import { useDispatch } from 'react-redux';
-import { toggleAuth } from './auth/authSlice'
+import { signout } from './auth/authSlice';
 
 export const Todo = () => {
   //State
   const POSTurl = 'task';
   const dispatch = useDispatch();
   const [todos, setTodos] = useState([]);
-  const [sorterFilter, setSorterFilter] = useState({ sorterType: true, filterType: '' });
+  const [sorterFilter, setSorterFilter] = useState({
+    sorterType: true,
+    filterType: '',
+  });
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(5);
   const [pagesCount, setPagesCount] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-
 
   //Fetch todos from API
 
@@ -34,80 +36,77 @@ export const Todo = () => {
           filterBy: filterType,
           order: sorterType ? 'desc' : 'asc',
           curentPage: currentPage,
-          limit: postsPerPage
-        }
+          limit: postsPerPage,
+        },
       });
       setTodos(res.data.tasks);
-      setPagesCount(res.data.pagesCount)
+      setPagesCount(res.data.pagesCount);
       setIsLoading(false);
-    } catch (err) {
+    } catch (err: any) {
       const message = err.response.data.message;
       if (message === 'Incorrect token') {
         localStorage.clear();
-        dispatch(toggleAuth());
-      };
+        dispatch(signout());
+      }
     }
-
-  }, [sorterFilter, dispatch, currentPage, postsPerPage])
+  }, [sorterFilter, dispatch, currentPage, postsPerPage]);
 
   useEffect(() => {
-    fetchTodos()
-  }, [fetchTodos])
-
-
+    fetchTodos();
+  }, [fetchTodos]);
 
   //Action functions
   //Add Todo
-  const handleTodoSubmit = async (todo) => {
-    await axios.post(POSTurl,
-      {
-        name: todo,
-        done: false
-      });
+  const handleTodoSubmit = async (todo: any) => {
+    await axios.post(POSTurl, {
+      name: todo,
+      done: false,
+    });
     await fetchTodos();
   };
   //Delete Todo
-  const handleTodoDelete = async ({ uuid }) => {
+  const handleTodoDelete = async ({ uuid }: any) => {
     await axios.delete(`${POSTurl}/${uuid}`);
     await fetchTodos();
   };
   // //Change Todo
-  const handleTodoChange = async ({ name, done, uuid }) => {
-    await axios.patch(`${POSTurl}/${uuid}`,
-      {
-        name,
-        done
-      });
+  const handleTodoChange = async ({ name, done, uuid }: any) => {
+    await axios.patch(`${POSTurl}/${uuid}`, {
+      name,
+      done,
+    });
     await fetchTodos();
   };
 
   return (
     <>
-      <ToDoInput handleTodoSubmit={handleTodoSubmit}
-        todos={todos}
-        setTodos={setTodos}
-      />
+      <ToDoInput handleTodoSubmit={handleTodoSubmit} />
       <SorterFilter
         sorterFilter={sorterFilter}
         setSorterFilter={setSorterFilter}
-        setCurrentPage={setCurrentPage} />
-      {!isLoading &&
+        setCurrentPage={setCurrentPage}
+      />
+      {!isLoading && (
         <ToDoList
           todos={todos}
           handleTodoDelete={handleTodoDelete}
           handleTodoChange={handleTodoChange}
-        />}
-      {(pagesCount > 1 && !isLoading) &&
+        />
+      )}
+      {pagesCount > 1 && !isLoading && (
         <Pagination
           pagesCount={pagesCount}
           currentPage={currentPage}
-          setCurrentPage={setCurrentPage} />
-      }
-      {isLoading &&
+          setCurrentPage={setCurrentPage}
+        />
+      )}
+      {isLoading && (
         <Grid container alignItems='center' direction='column'>
-          <Grid item><CircularProgress /></Grid>
+          <Grid item>
+            <CircularProgress />
+          </Grid>
         </Grid>
-      }
+      )}
     </>
   );
 };
