@@ -5,14 +5,11 @@ import { SorterFilter } from './SorterFilter';
 import { ToDoInput } from './ToDoInput';
 import { ToDoList } from './ToDoList';
 import axios from '../axiosConfig';
-import { useDispatch } from 'react-redux';
-import { signout } from './auth/authSlice';
 import { Task } from '../app/interfaces';
 
 export const Todo = () => {
   //State
   const POSTurl = 'task';
-  const dispatch = useDispatch();
   const [todos, setTodos] = useState([]);
   const [sorterFilter, setSorterFilter] = useState({
     sorterType: true,
@@ -27,30 +24,22 @@ export const Todo = () => {
 
   const fetchTodos = useCallback(async () => {
     //creating GETurl
-    try {
-      const token = localStorage.getItem('token');
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      const { sorterType, filterType } = sorterFilter;
-      const res = await axios.get('/tasks', {
-        //SorterParams
-        params: {
-          filterBy: filterType,
-          order: sorterType ? 'desc' : 'asc',
-          curentPage: currentPage,
-          limit: postsPerPage,
-        },
-      });
-      setTodos(res.data.tasks);
-      setPagesCount(res.data.pagesCount);
-      setIsLoading(false);
-    } catch (err: any) {
-      const message = err.response.data.message;
-      if (message === 'Incorrect token') {
-        localStorage.clear();
-        dispatch(signout());
-      }
-    }
-  }, [sorterFilter, dispatch, currentPage, postsPerPage]);
+    const token = localStorage.getItem('token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    const { sorterType, filterType } = sorterFilter;
+    const res = await axios.get('/tasks', {
+      //SorterParams
+      params: {
+        filterBy: filterType,
+        order: sorterType ? 'desc' : 'asc',
+        curentPage: currentPage,
+        limit: postsPerPage,
+      },
+    });
+    setTodos(res.data.tasks);
+    setPagesCount(res.data.pagesCount);
+    setIsLoading(false);
+  }, [sorterFilter, currentPage, postsPerPage]);
 
   useEffect(() => {
     fetchTodos();

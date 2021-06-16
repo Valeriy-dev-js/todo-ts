@@ -1,7 +1,7 @@
 import { TextField } from "@material-ui/core";
 import React, { useState } from "react";
 
-export const ToDoInput = ({ handleTodoPost }: any) => {
+export const ToDoInput = ({ handleTodoPost }:any ) => {
     const [name, setName] = useState('');
     
     const pressEnter = async (event: React.KeyboardEvent<HTMLDivElement>) => {

@@ -7,8 +7,10 @@ import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import axios from './axiosConfig'
 import { setAlert } from './app/alertSlice';
+import { signout } from './components/auth/authSlice';
 
 axios.interceptors.response.use(req => req, error => {
+  if(error.response.data.message === 'Incorrect token') return store.dispatch(signout())
   const alert = {
     isAlert: true,
     message: error.response.data.message,
