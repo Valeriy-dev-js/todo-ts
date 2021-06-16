@@ -4,6 +4,7 @@ import {
   selectIsSignup,
   selectIsLogined,
   toggleSignup,
+  signout
 } from './auth/authSlice';
 
 export const Header = () => {
@@ -34,6 +35,7 @@ export const Header = () => {
           <Grid container alignItems='center' justify='space-between'>
             <Typography>{name}</Typography>
             <Button
+              onClick={() => dispatch(signout())}
               color='primary'
               variant='contained'
             >

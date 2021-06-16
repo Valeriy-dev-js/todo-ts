@@ -47,16 +47,26 @@ const authSlice = createSlice({
     setUserPassword(state, acton) {
       state.password = acton.payload;
     },
+    signout(state){
+      state.name = '';
+      state.password = '';
+      state.isLogined = false;
+      localStorage.clear();
+    },
   },
   extraReducers: {
     [login.fulfilled]: (state, action) => {
-      console.log('Token', action.payload.token);
+      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('name', state.name)
       state.isLogined = true;
     },
+    [signup.fulfilled]: (state, action) => {
+
+    }
   },
 });
 
-export const { toggleSignup, toggleLogin, setUserName, setUserPassword } = authSlice.actions;
+export const { signout, toggleSignup, toggleLogin, setUserName, setUserPassword } = authSlice.actions;
 export const selectIsLogined = (state: RootState) => state.auth.isLogined;
 export const selectName = (state: RootState) => state.auth.name;
 export const selectPassword = (state: RootState) => state.auth.password;
