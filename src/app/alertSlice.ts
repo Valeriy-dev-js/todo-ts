@@ -1,15 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
+interface Alert {
+    isAlert: boolean;
+    message: string;
+    status: number;
+}
 const alertSlice = createSlice({
     name: 'alert',
-    initialState: {
-        isAlert: false,
-        message: '',
-        status: ''
-    },
+    initialState: {} as Alert,
     reducers:{
-        setAlert(state, action : PayloadAction<any>){
+        setAlert(state, action : PayloadAction<Alert>){
+            state.isAlert = false;
             state.isAlert = action.payload.isAlert;
             state.message = action.payload.message;
             state.status = action.payload.status;
