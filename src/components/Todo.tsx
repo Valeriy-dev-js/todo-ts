@@ -3,18 +3,22 @@ import { useCallback, useEffect, useState } from 'react';
 import { Pagination } from './Pagination';
 import { SorterFilter } from './SorterFilter';
 import { ToDoInput } from './ToDoInput';
-import { ToDoList } from './ToDoList';
+// import { ToDoList } from './ToDoList';
+import { ToDoLIstItem } from './ToDoListItem';
 import axios from '../axiosConfig';
 import { Task } from '../app/interfaces';
+import { List } from '@material-ui/icons';
 
 export interface SorterFilterInt {
   sorterType: boolean;
-  filterType: string; 
+  filterType: string;
 }
 export const Todo = () => {
   //State
   const POSTurl = 'task';
   const [todos, setTodos] = useState([]);
+  console.log(todos);
+  
   const [sorterFilter, setSorterFilter] = useState({
     sorterType: true,
     filterType: '',
@@ -80,13 +84,23 @@ export const Todo = () => {
         setSorterFilter={setSorterFilter}
         setCurrentPage={setCurrentPage}
       />
-      {!isLoading && (
-        <ToDoList
-          todos={todos}
-          handleTodoDelete={handleTodoDelete}
-          handleTodoChange={handleTodoChange}
-        />
-      )}
+      {!isLoading && 
+        <List>
+          {todos.map((todo: Task) => 
+            <ToDoLIstItem
+              key={todo.uuid}
+              todo={todo}
+              handleTodoDelete={handleTodoDelete}
+              handleTodoChange={handleTodoChange}
+            />
+          )}
+        </List>
+        // <ToDoList
+        //   todos={todos}
+        //   handleTodoDelete={handleTodoDelete}
+        //   handleTodoChange={handleTodoChange}
+        // />
+      }
       {pagesCount > 1 && !isLoading && (
         <Pagination
           pagesCount={pagesCount}

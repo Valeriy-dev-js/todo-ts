@@ -17,12 +17,13 @@ const styles = {
 };
 
 export const ToDoLIstItem: React.FC<Props> = ({ todo, handleTodoDelete, handleTodoChange }) => {
+    console.log(228);
     const date = todo.createdAt.match(/\d+.\d+.\d+/s);
     const time: string = date !== null ? date[0] : "Date"
     const [toggleInput, setToggleInput] = useState(false);
     const [task, setTask] = useState(todo);
     const [disabled, setDisabled] = useState(false);
-
+    
     const handleKeyDown = async (todo: Task, e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter') {
             e.preventDefault();
