@@ -7,6 +7,10 @@ import { ToDoList } from './ToDoList';
 import axios from '../axiosConfig';
 import { Task } from '../app/interfaces';
 
+export interface SorterFilterInt {
+  sorterType: boolean;
+  filterType: string; 
+}
 export const Todo = () => {
   //State
   const POSTurl = 'task';

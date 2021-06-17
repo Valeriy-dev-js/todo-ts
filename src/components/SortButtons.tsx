@@ -1,9 +1,14 @@
 import { IconButton } from '@material-ui/core';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import React from 'react';
 
-export const SortButtons = ({ handleSorter , sorterType}) => {
-    const handleButton = (type) => {
+interface Props {
+    handleSorter: (type: boolean) => void;
+    sorterType: boolean;
+}
+export const SortButtons: React.FC<Props> = ({ handleSorter , sorterType}) => {
+    const handleButton = (type: boolean) => {
         if(type !== sorterType){
             handleSorter(type);
         };
