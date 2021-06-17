@@ -3,20 +3,27 @@ import { useState } from "react";
 import DeleteIcon from '@material-ui/icons/Delete';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import { Task } from "../app/interfaces";
 
+interface Props {
+    todo: Task;
+    handleTodoDelete: (props: Task) => Promise<void>;
+    handleTodoChange: (props: Task) => Promise<void>;
+}
 const styles = {
     border: '1px solid rgba(0, 0, 0, 0.23)',
     borderRadius: '5px',
     marginBottom: '10px'
 };
 
-export const ToDoLIstItem = ({ todo, handleTodoDelete, handleTodoChange }) => {
-    const time = todo.createdAt.match(/\d+.\d+.\d+/s)[0];
+export const ToDoLIstItem: React.FC<Props> = ({ todo, handleTodoDelete, handleTodoChange }) => {
+    const date = todo.createdAt.match(/\d+.\d+.\d+/s);
+    const time: string = date !== null ? date[0] : "Date"
     const [toggleInput, setToggleInput] = useState(false);
     const [task, setTask] = useState(todo);
     const [disabled, setDisabled] = useState(false);
 
-    const handleKeyDown = async (todo, e) => {
+    const handleKeyDown = async (todo: Task, e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter') {
             e.preventDefault();
             await handleTodoChange(task);
@@ -67,7 +74,6 @@ export const ToDoLIstItem = ({ todo, handleTodoDelete, handleTodoChange }) => {
                             fullWidth />
                         : <ListItemText primary={todo.name}
                             style={{ overflowWrap: 'break-word' }}
-                            multiline='true'
                             onClick={() => setToggleInput(true)} />}
                 </Grid>
                 <Grid item xs={2}>

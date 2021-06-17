@@ -2,7 +2,7 @@ import { List } from '@material-ui/core';
 import { Task, Tasks } from '../app/interfaces';
 import { ToDoLIstItem } from './ToDoListItem';
 interface Props {
-    todos: Tasks
+    todos: Tasks;
     handleTodoDelete:(props: Task) => Promise<void>;
     handleTodoChange:(props: Task) => Promise<void>;
 }
