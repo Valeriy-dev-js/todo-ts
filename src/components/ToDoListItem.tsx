@@ -7,8 +7,8 @@ import { Task } from "../app/interfaces";
 
 interface Props {
     todo: Task;
-    handleTodoDelete: (props: Task) => Promise<void>;
-    handleTodoChange: (props: Task) => Promise<void>;
+    handleTodoDelete: (task: Task) => Promise<void>;
+    handleTodoChange: (task: Task) => Promise<void>;
 }
 const styles = {
     border: '1px solid rgba(0, 0, 0, 0.23)',

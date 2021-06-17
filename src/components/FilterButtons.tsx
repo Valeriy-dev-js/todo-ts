@@ -1,6 +1,10 @@
 import { Button, ButtonGroup } from '@material-ui/core';
-
-export const FilterButtons = ({ handleFilter, filterType }) => {
+import React from 'react';
+interface Props {
+    handleFilter: (type: string) => void;
+    filterType: string;
+}
+export const FilterButtons: React.FC<Props> = ({ handleFilter, filterType }) => {
     const buttons = [{title: 'All', type: ''},
                      {title: 'Done',type: 'done'},
                      {title: 'Undone', type: 'undone'}];
@@ -10,7 +14,7 @@ export const FilterButtons = ({ handleFilter, filterType }) => {
             {buttons.map((button) => (
                 <Button color='primary'
                     key={button.title}
-                    variant={button.type === filterType && 'contained'}
+                    variant={button.type === filterType ? 'contained': 'outlined'}
                     onClick={() => {
                         if (filterType !== button.type) {
                             return handleFilter(button.type)

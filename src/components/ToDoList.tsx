@@ -3,8 +3,8 @@ import { Task, Tasks } from '../app/interfaces';
 import { ToDoLIstItem } from './ToDoListItem';
 interface Props {
     todos: Tasks;
-    handleTodoDelete:(props: Task) => Promise<void>;
-    handleTodoChange:(props: Task) => Promise<void>;
+    handleTodoDelete:(task: Task) => Promise<void>;
+    handleTodoChange:(task: Task) => Promise<void>;
 }
 export const ToDoList: React.FC<Props> = ({ todos, handleTodoDelete, handleTodoChange }) => {
     return (
