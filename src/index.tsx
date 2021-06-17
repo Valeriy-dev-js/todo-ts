@@ -5,25 +5,30 @@ import App from './App';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import axios from './axiosConfig'
+import axios from './axiosConfig';
 import { setAlert } from './app/alertSlice';
 import { signout } from './components/auth/authSlice';
+import { Alert } from './app/interfaces';
 
-axios.interceptors.response.use(req => req, error => {
-  if(error.response.data.message === 'Incorrect token') return store.dispatch(signout())
-  const alert = {
-    isAlert: true,
-    message: error.response.data.message,
-    status: error.response.status
+axios.interceptors.response.use(
+  (req) => req,
+  (error) => {
+    if (error.response.data.message === 'Incorrect token')
+      return store.dispatch(signout());
+    const alert: Alert = {
+      isAlert: true,
+      message: error.response.data.message,
+      status: error.response.status,
+    };
+    store.dispatch(setAlert(alert));
+    return Promise.reject(error);
   }
-  store.dispatch(setAlert(alert))
-  return Promise.reject(error)
-});
+);
 
 ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
 

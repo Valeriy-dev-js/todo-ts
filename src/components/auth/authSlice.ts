@@ -11,14 +11,14 @@ interface AuthState extends User {
   isSignup: boolean;
 }
 
-export const login: any = createAsyncThunk(
+export const login = createAsyncThunk(
   'auth/login', 
   async (user: User) => {
     const res = await axios.post('login', user);
     return res.data;
 });
 
-export const signup: any = createAsyncThunk(
+export const signup = createAsyncThunk(
   'auth/signup',
   async (user: User) => {
     const res = await axios.post('signup', user);
@@ -54,13 +54,13 @@ const authSlice = createSlice({
       localStorage.clear();
     },
   },
-  extraReducers: {
-    [login.fulfilled]: (state, action) => {
-      localStorage.setItem('token', action.payload.token);
+  extraReducers: builder => {
+    builder.addCase(login.fulfilled, (state, action) => {
+      localStorage.setItem('token', action.payload.token)
       localStorage.setItem('name', state.name)
-      state.isLogined = true;
-    },
-  },
+      state.isLogined = true
+    })
+  }
 });
 
 export const { signout, toggleSignup, toggleLogin, setUserName, setUserPassword } = authSlice.actions;

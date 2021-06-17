@@ -6,3 +6,9 @@ export interface Task {
 }
 
 export type Tasks = Task[]
+
+export interface Alert {
+  isAlert: boolean;
+  message: string;
+  status: number;
+}
