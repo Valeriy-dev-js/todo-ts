@@ -4,6 +4,4 @@ export interface Task {
   uuid: string;
 }
 
-export interface Tasks {
-  tasks: Task[];
-}
+export type Tasks = Task[]
