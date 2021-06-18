@@ -1,13 +1,11 @@
-import { CircularProgress, Grid } from '@material-ui/core';
+import { CircularProgress, Grid, List } from '@material-ui/core';
 import { useCallback, useEffect, useState } from 'react';
 import { Pagination } from './Pagination';
 import { SorterFilter } from './SorterFilter';
 import { ToDoInput } from './ToDoInput';
-// import { ToDoList } from './ToDoList';
-import { ToDoLIstItem } from './ToDoListItem';
+import { ToDoListItem } from './ToDoListItem';
 import axios from '../axiosConfig';
 import { Task } from '../app/interfaces';
-import { List } from '@material-ui/icons';
 
 export interface SorterFilterInt {
   sorterType: boolean;
@@ -17,8 +15,7 @@ export const Todo = () => {
   //State
   const POSTurl = 'task';
   const [todos, setTodos] = useState([]);
-  console.log(todos);
-  
+
   const [sorterFilter, setSorterFilter] = useState({
     sorterType: true,
     filterType: '',
@@ -84,23 +81,18 @@ export const Todo = () => {
         setSorterFilter={setSorterFilter}
         setCurrentPage={setCurrentPage}
       />
-      {!isLoading && 
+      {!isLoading && (
         <List>
-          {todos.map((todo: Task) => 
-            <ToDoLIstItem
+          {todos.map((todo: Task) => (
+            <ToDoListItem
               key={todo.uuid}
               todo={todo}
               handleTodoDelete={handleTodoDelete}
               handleTodoChange={handleTodoChange}
             />
-          )}
+          ))}
         </List>
-        // <ToDoList
-        //   todos={todos}
-        //   handleTodoDelete={handleTodoDelete}
-        //   handleTodoChange={handleTodoChange}
-        // />
-      }
+      )}
       {pagesCount > 1 && !isLoading && (
         <Pagination
           pagesCount={pagesCount}

@@ -16,7 +16,7 @@ const styles = {
     marginBottom: '10px'
 };
 
-export const ToDoLIstItem: React.FC<Props> = ({ todo, handleTodoDelete, handleTodoChange }) => {
+export const ToDoListItem: React.FC<Props> = ({ todo, handleTodoDelete, handleTodoChange }) => {
     console.log(228);
     const date = todo.createdAt.match(/\d+.\d+.\d+/s);
     const time: string = date !== null ? date[0] : "Date"
